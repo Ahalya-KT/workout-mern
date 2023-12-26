@@ -21,14 +21,16 @@ export const WorkoutContextprovider = ({ children }) => {
   const [state, dispatch] = useReducer(workoutReducer, {
     workouts: null,
   });
-};
 
-dispatch({ type: "SET_WORKOUTS", payload: [{}, {}] });
-
-const WorkoutContext = () => {
   return (
     <WorkoutContext.Provider value={{...state,dispatch }}>
       {children}
     </WorkoutContext.Provider>
   );
+
 };
+
+
+
+
+ 
