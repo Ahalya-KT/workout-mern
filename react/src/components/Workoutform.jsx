@@ -2,19 +2,19 @@ import { useState } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutsContext";
 
 const Workoutform = () => {
-  const {dispatch}=useWorkoutContext()
+  const { dispatch } = useWorkoutContext();
 
   const [title, setTitle] = useState("");
-  const [load, setLoad] = useState("");
+  const [loads, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const workout = { title, load, reps };
+    const workout = { title, loads, reps };
 
-    const response = await fetch("/api/workouts", {
+    const response = await fetch("http://localhost:4000/api/workout", {
       method: "POST",
       body: JSON.stringify(workout),
       headers: {
@@ -22,6 +22,7 @@ const Workoutform = () => {
       },
     });
     const json = await response.json();
+    console.log(json)
     if (!response.ok) {
       setError(json.error);
     }
@@ -30,7 +31,7 @@ const Workoutform = () => {
       setLoad("");
       setReps("");
       setError(null);
-      dispatch({type:'WORKOUT_CREATED',payload:json})
+      dispatch({ type: "WORKOUT_CREATED", payload: json });
     }
   };
 
@@ -48,7 +49,7 @@ const Workoutform = () => {
       <input
         type="number"
         onChange={(e) => setLoad(e.target.value)}
-        value={load}
+        value={loads}
       />
 
       <label>Reps:</label>

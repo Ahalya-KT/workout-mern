@@ -8,6 +8,23 @@ const workoutRoutes = require('./routes/workout')
   
 // express app
 const app = express()
+
+// cors
+const cors = require("cors");
+
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5173"];
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
  
 // middleware 
 app.use(express.json())
