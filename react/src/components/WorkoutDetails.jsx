@@ -5,6 +5,9 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutContext();
 
+ const currDate = new Date().toLocaleDateString();
+const currTime = new Date().toLocaleTimeString();
+
   const handleClick = async () => {
     const response = await fetch(
       "http://localhost:4000/api/workout/" + workout._id,
@@ -33,6 +36,8 @@ const WorkoutDetails = ({ workout }) => {
       {/* to get hrs */}
       <p>{formatDistanceToNow(new Date(workout.createdAt),{addSuffix:true})}</p>
       <MdDelete  size={25} onClick={handleClick} />
+      <p>Date : {currDate}</p>
+      <p>Time : {currTime}</p>
     </div>
   );
 };
